@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Wesley-Costa/nodejs#readme",
   "dependencies": {
+    "axios": "^0.23.0",
     "express": "^4.17.1",
     "knex": "^0.95.11",
     "sqlite3": "^5.0.2"

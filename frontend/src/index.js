@@ -6,7 +6,7 @@ import Header from './pages/Header/index';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header title = "User App - Deu Bom"/>
+    <Header title = "User App"/>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

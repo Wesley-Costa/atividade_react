@@ -8,8 +8,9 @@ export default function User(){
         api.get('users').then(response =>{
             setUsers(response.data);
         })
-    }, [])
-    console.log(users)
+        console.log(users, "...")
+    }, [users])
+    console.log(users, "...")
     
     return(
         <div id = "user-container">

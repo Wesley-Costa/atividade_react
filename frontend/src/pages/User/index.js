@@ -1,31 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import api from '../../services/api';
 import './style.css';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 
 export default function User(){
     const [users, setUsers] = useState([]);
     useEffect(()=>{
-        api.get('users').then(response =>{
+        api.get('usuarios').then(response =>{
             setUsers(response.data);
         })
         console.log(users, "...")
-    }, [users])
-    console.log(users, "...")
-    const history = useHistory();
+    }, [])
+
+    async function handleDelete(id){
+        try{
+            await api.delete(`/usuarios/${id}`)
+            setUsers(users.filter(user => user.id != id))
+        }catch(err){
+            alert('Erro ao deletar!!!');
+        }
+    }
 
     return(
         <div id = "user-container">
             <h1>
                List de usuários 
             </h1>
-            <Link className = "button" id="create-link" to='/create'>Criar</Link>
-            {/* <Link className = "button" id="create-link" onClick={()=>history.push('/create')}>Criar</Link> */}
+            <Link className = "button" id="create-link" to={"/create"}>Criar</Link>
             <ul className="user-list">
                 {users.map(user => (
-                    <li key = {users.id}>
+                    <li key = {user.id}>
                         <strong>Nome</strong>
                         <p>{user.name} </p>
                         <strong>Email</strong>
@@ -35,8 +41,8 @@ export default function User(){
                         <strong>Empresa</strong>
                         <p>{user.empresa} </p>
                         <div className="actions">
-                            <button className = "button" type="button">Deletar</button>
-                            <button className = "button" type="button">Acessar</button>
+                            <button className = "button" onClick = {()=>handleDelete(user.id)} type="button">Deletar</button>
+                            <Link className = "button" to={`/update/${user.id}`}>Acessar</Link>
                         </div>
                     </li>
                 ))}

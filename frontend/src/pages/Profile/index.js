@@ -7,16 +7,16 @@ export default function Profile(){
     const history = useHistory();
     const {id} = useParams();
     const initUser = {
-        nome:'Nome',
-        email:'Email',
+        name:'',
+        email:'',
         idade: 0,
-        empresa:'Empresa'
+        empresa:''
     }
     const [user, setUser] = useState(initUser);
 
     useEffect(()=>{
         if(id){
-            api.get(`/users/${id}`).then(response=>{
+            api.get(`/usuarios/${id}`).then(response=>{
                 console.log(response.data)
                 setUser(...response.data)
             })
@@ -26,15 +26,16 @@ export default function Profile(){
     function onSubmit(ev){
         ev.preventDefault();
         const metodo = id ? 'put' : 'post';
-        const url = id ? `/users/${id}` : '/users';
+        const url = id ? `/usuarios/${id}` : '/usuarios';
         api[metodo](url, user).then((response)=>{
             history.push('/')
         })
     }
 
     function onChange(ev){
-        const {nome, valor} = ev.target;
-        setUser({...user, [nome]:valor});
+        const {name, value} = ev.target;
+        setUser({...user, [name]:value})
+        console.log(user, '...')
     }
 
     return(
@@ -42,16 +43,16 @@ export default function Profile(){
             <h1>Cadastro</h1>
             <form onSubmit={onSubmit}>
                 <strong> Nome:</strong>
-                <input name="nome" onChange={onChange} value={user.nome}/>
+                <input name="name" onChange={onChange} value={user.name}/>
                 <strong> Email:</strong>
-                <input type = "email" name="email" onChange={onChange} value={user.email}/>
+                <input  name="email" onChange={onChange} value={user.email}/>
                 <strong> Idade:</strong>
                 <input name="idade" onChange={onChange} value={user.idade}/>
                 <strong> Empresa:</strong>
                 <input name="empresa" onChange={onChange} value={user.empresa}/>
 
                 <div className="actions">
-                    <Link className = "button" to='/'>Voltar</Link>
+                    <Link className = "button" to={"/"}>Voltar</Link>
                     <button className = "button" type="submit">Salvar</button>
                 </div>
             </form>

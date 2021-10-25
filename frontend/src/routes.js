@@ -9,7 +9,8 @@ export default function Routes (){
             <Switch>
                 <Route exact path='/' component={User}/>
                 <Route path='/create' component={Profile}/>
-                <Route path='/update/:id' component={Profile}/>            </Switch>
+                <Route path='/update/:id' component={Profile}/>            
+            </Switch>
         </BrowserRouter>
     );
 }

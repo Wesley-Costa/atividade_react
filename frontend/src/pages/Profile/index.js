@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import './style.css';
 import {Link, useHistory, useParams} from 'react-router-dom';
+import './style.css';
 import api from '../../services/api';
 
 export default function Profile(){
